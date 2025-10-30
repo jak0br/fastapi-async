@@ -4,17 +4,18 @@ This repository contains a demo FastAPI application designed to test and demonst
 
 ## Purpose
 The app provides endpoints that:
-- Retrieve products from a database using both asynchronous and synchronous methods.
-- Simulate blocking operations using sleep functions, allowing you to observe how blocking affects the event loop and thread pool.
+- Retrieve products from a database using both asynchronous (`/product_async`) and synchronous (`/product_sync`) methods.
+- Simulate blocking operations using sleep functions, allowing you to observe how blocking affects the event loop (`/sleep_async`) and thread pool (`/sleep_sync`).
 
 ## Key Features
 - **Async and Sync Database Access:** Compare performance and behavior between async and sync database queries.
 - **Locking Demonstrations:** Endpoints to lock the event loop (async sleep) and thread pool (sync sleep) to visualize their impact on request handling.
 - **Repository Pattern:** Database access is wrapped in a repository class for clean separation of concerns.
+- **Modular Routing:** All product-related endpoints are organized in `api/product.py` and registered via a FastAPI router.
 
 ## Usage
 1. Start the FastAPI app (see `main.py`).
-2. Use the `/products` and `/product_sync` endpoints to test async vs sync database access.
+2. Use the `/product_async` and `/product_sync` endpoints to test async vs sync database access.
 3. Use the `/sleep_async` and `/sleep_sync` endpoints to test locking behavior.
 
 ## Structure

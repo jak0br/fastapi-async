@@ -14,8 +14,8 @@ def _create_product_repo(
 ) -> ProductRepository:
     return ProductRepository(async_session=async_session, sync_session=sync_session)
 
-@router.get("/products", response_model=list[ProductRead])
-async def list_products(repo: ProductRepository = Depends(_create_product_repo)):
+@router.get("/product_async", response_model=list[ProductRead])
+async def product_async(repo: ProductRepository = Depends(_create_product_repo)):
     products = await repo.get_all_products()
     return products
 
@@ -33,4 +33,3 @@ def sleep_sync(repo: ProductRepository = Depends(_create_product_repo)):
 def product_sync(repo: ProductRepository = Depends(_create_product_repo)):
     products = repo.get_all_products_sync()
     return products
-
