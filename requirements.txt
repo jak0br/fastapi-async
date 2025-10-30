@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+SQLAlchemy
+psycopg2-binary
+asyncpg
+pydantic
+sqlmodel
+pydantic-settings
+greenlet

@@ -1,10 +1,7 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from sqlmodel.ext.asyncio.session import AsyncSession
-from app.db.database import get_session, init_db, get_sync_db, engine
-from crud import get_all_products, get_all_products_sync
-from models import ProductRead
-from sqlalchemy.orm import Session as SyncSession
+from db.database import init_db, engine
+from api.product import router as product_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -20,15 +17,4 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-@app.get("/products", response_model=list[ProductRead])
-async def list_products(session: AsyncSession = Depends(get_session)):
-
-    products = await get_all_products(session)
-    return products
-
-
-@app.get("/porduct_sync", response_model=list[ProductRead])
-def porduct_sync(session: SyncSession = Depends(get_sync_db)):
-    """Synchronous endpoint using the blocking Session and sync CRUD."""
-    products = get_all_products_sync(session)
-    return products
+app.include_router(product_router)
